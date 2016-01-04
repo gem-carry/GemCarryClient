@@ -1,0 +1,20 @@
+c:\users\dhartnett\documents\visual studio 2013\Projects\GemCarryClient\GemCarryClient\bin\Debug\GemCarryClient.exe.config
+c:\users\dhartnett\documents\visual studio 2013\Projects\GemCarryClient\GemCarryClient\bin\Debug\GemCarryClient.exe
+c:\users\dhartnett\documents\visual studio 2013\Projects\GemCarryClient\GemCarryClient\bin\Debug\GemCarryClient.pdb
+c:\users\dhartnett\documents\visual studio 2013\Projects\GemCarryClient\GemCarryClient\obj\Debug\GemCarryClient.exe
+c:\users\dhartnett\documents\visual studio 2013\Projects\GemCarryClient\GemCarryClient\obj\Debug\GemCarryClient.pdb
+C:\Users\dhartnett\Documents\Visual Studio 2013\Projects\GemCarryClient\GemCarryClient\obj\Debug\GemCarryClient.csprojResolveAssemblyReference.cache
+C:\Users\dhartnett\Documents\Visual Studio 2013\Projects\GemCarryClient\GemCarryClient\bin\Debug\GCMessaging.dll
+C:\Users\dhartnett\Documents\Visual Studio 2013\Projects\GemCarryClient\GemCarryClient\bin\Debug\GCMessaging.pdb
+C:\Users\bwt\Desktop\GemCarryClient\GemCarryClient\bin\Debug\GemCarryClient.exe.config
+C:\Users\bwt\Desktop\GemCarryClient\GemCarryClient\obj\Debug\GemCarryClient.exe
+C:\Users\bwt\Desktop\GemCarryClient\GemCarryClient\obj\Debug\GemCarryClient.pdb
+C:\Users\bwt\Desktop\GemCarryClient\GemCarryClient\bin\Debug\GemCarryClient.exe
+C:\Users\bwt\Desktop\GemCarryClient\GemCarryClient\bin\Debug\GemCarryClient.pdb
+C:\Users\bwt\Desktop\GemCarryClient\GemCarryClient\bin\Debug\GCMessaging.dll
+C:\Users\bwt\Desktop\GemCarryClient\GemCarryClient\bin\Debug\GCMessaging.pdb
+C:\Users\bwt\Desktop\GemCarryClient\GemCarryClient\obj\Debug\GemCarryClient.csprojResolveAssemblyReference.cache
+C:\Users\bwt\Desktop\GemCarryClient\GemCarryClient\bin\Debug\GameLogger.cs
+C:\Users\bwt\Source\Repos\GemCarryClient\GemCarryClient\bin\Debug\GemCarryClient.exe.config
+C:\Users\bwt\Source\Repos\GemCarryClient\GemCarryClient\obj\Debug\GemCarryClient.exe
+C:\Users\bwt\Source\Repos\GemCarryClient\GemCarryClient\obj\Debug\GemCarryClient.pdb
