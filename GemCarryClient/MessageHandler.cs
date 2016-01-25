@@ -30,32 +30,12 @@ namespace GemCarryClient
 
             MessageBase msg = (MessageBase)formatter.Deserialize(dataStream);
 
-            /*
-            MessageBase msg = (MessageBase) formatter.Deserialize(stream);
-
             switch(msg.mType)
             {
-                case MessageType.LOGIN:
+                case MessageType.CHAT:
                     {
-                        MessageLogin loginMsg = (MessageLogin) formatter.Deserialize(msg.PullMessage());
-
-                        // For Testing
-                        Console.WriteLine("User login Message is u:" + loginMsg.mUsername + ", p:" + loginMsg.mPassword);
-                        // End Testing
-
-                        int status = LoginManager.AttemptLoginForClient(loginMsg/*, out UserDetails user*//*);
-
-                        if(0 == status)
-                        {
-                            // Success!
-                            //OutMessageUserDetails userMsg = new OutMessageUserDetails(
-                            //client.DispatchMessage();
-                        }
-                        else
-                        {
-                            Console.WriteLine("Failed with reason " + status);
-                        }
-
+                        ChatMessage chatMsg = (ChatMessage)msg;
+                        Console.WriteLine("{0}: {1}", chatMsg.mSender, chatMsg.mMessage);
                         break;
                     }
                 case MessageType.HEARTBEAT:
@@ -65,7 +45,6 @@ namespace GemCarryClient
                         return;
                     }
             }
-            */
         }
     }
 }
