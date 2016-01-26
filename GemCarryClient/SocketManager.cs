@@ -163,20 +163,34 @@ namespace GemCarryClient
                             state.dataCount = bytesRead;
                         }
 
+                        // All the data has been read from the 
+                        // client. Display it on the console.
+                        Console.WriteLine("Read {0} bytes from socket.",
+                            state.data.Length);
+
                         // Check for end-of-file tag. If it is not there, read 
                         // more data.
-                        if (MessageHelper.FindEOM(state.data) > -1)
+                        int msgEnd = MessageHelper.FindEOM(state.data);
+                        if (msgEnd > -1)
                         {
-                            // All the data has been read from the 
-                            // client. Display it on the console.
-                            Console.WriteLine("Read {0} bytes from socket. \n Data : {1}",
-                                state.data.Length, state.data.ToString());
+                            // At least one full message read
+                            while (msgEnd > -1)
+                            {
+                                byte[] dataMsg;
+                                byte[] newMsg;
+                                int newMsgLength;
 
-                            byte[] dataMsg;
-                            MessageHelper.RemoveEOM(state.data, out dataMsg);
+                                // Sorts out the message data into at least one full message, saves any spare bytes for next message
+                                MessageHelper.ClearMessageFromStream(msgEnd, state.data, out dataMsg, out newMsg, out newMsgLength);
 
-                            // Do something with client message
-                            MessageHandler.HandleMessage(dataMsg);
+                                // Do something with client message
+                                MessageHandler.HandleMessage(dataMsg);
+
+                                state.data = newMsg;
+                                state.dataCount = newMsgLength;
+
+                                msgEnd = MessageHelper.FindEOM(state.data);
+                            }
                         }
                         else
                         {
