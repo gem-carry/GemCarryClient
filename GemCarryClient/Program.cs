@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net;
-using System.Net.Sockets;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
-using System.IO.Compression;
-using GCMessaging;
+﻿using GCMessaging;
+using System;
 
 namespace GemCarryClient
 {
@@ -21,6 +11,15 @@ namespace GemCarryClient
         {
             mSocketManager = new SocketManager();
             mSocketManager.StartServerConnection();
+
+            System.Threading.Thread.Sleep(1000);
+
+            ChatMessage cm = new ChatMessage();
+            Console.Write("Enter Message ===>>");
+            cm.mMessage = Console.ReadLine();
+            cm.mSender = "Client";
+            cm.mType = MessageType.CHAT;
+            mSocketManager.DispatchMessage(cm);
         }
     }
 }

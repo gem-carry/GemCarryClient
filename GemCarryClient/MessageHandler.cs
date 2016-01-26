@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using System.IO;
 using System.IO.Compression;
@@ -29,15 +25,18 @@ namespace GemCarryClient
             }
 
             MessageBase msg = (MessageBase)formatter.Deserialize(dataStream);
+            ChatMessage c = (ChatMessage)msg;
+            Console.WriteLine(c.mMessage);
 
             switch(msg.mType)
             {
                 case MessageType.CHAT:
                     {
                         ChatMessage chatMsg = (ChatMessage)msg;
-                        Console.WriteLine("{0}: {1}", chatMsg.mSender, chatMsg.mMessage);
-                        break;
+                        Console.WriteLine(String.Format("{0}: {1}", chatMsg.mSender, chatMsg.mMessage));
+                        return;
                     }
+
                 case MessageType.HEARTBEAT:
                 default:
                     {

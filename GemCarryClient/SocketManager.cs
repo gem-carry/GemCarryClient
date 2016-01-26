@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
 using System.Net;
 using System.Net.Sockets;
@@ -173,7 +169,7 @@ namespace GemCarryClient
                         {
                             // All the data has been read from the 
                             // client. Display it on the console.
-                            Console.WriteLine("Read {0} bytes from socket. \n Data : {2}",
+                            Console.WriteLine("Read {0} bytes from socket. \n Data : {1}",
                                 state.data.Length, state.data.ToString());
 
                             byte[] dataMsg;
