@@ -25,8 +25,7 @@ namespace GemCarryClient
             }
 
             MessageBase msg = (MessageBase)formatter.Deserialize(dataStream);
-            ChatMessage c = (ChatMessage)msg;
-            Console.WriteLine(c.mMessage);
+            ChatMessage c = (ChatMessage)msg;            
 
             switch(msg.mType)
             {

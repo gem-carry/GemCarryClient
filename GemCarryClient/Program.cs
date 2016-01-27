@@ -1,5 +1,6 @@
 ﻿using GCMessaging;
 using System;
+using System.Linq;
 
 namespace GemCarryClient
 {
@@ -17,9 +18,17 @@ namespace GemCarryClient
             ChatMessage cm = new ChatMessage();
             Console.Write("Enter Message ===>>");
             cm.mMessage = Console.ReadLine();
-            cm.mSender = "Client";
+            cm.mSender = RandomString(5);
             cm.mType = MessageType.CHAT;
-            mSocketManager.DispatchMessage(cm);
+            mSocketManager.DispatchMessage(cm);            
+        }
+
+        public static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var random = new Random();
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }
