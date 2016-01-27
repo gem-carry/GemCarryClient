@@ -24,24 +24,14 @@ namespace GemCarryClient
                 dataStream.Position = 0;
             }
 
-            MessageBase msg = (MessageBase)formatter.Deserialize(dataStream);
-            ChatMessage c = (ChatMessage)msg;            
+            MessageBase msg = (MessageBase)formatter.Deserialize(dataStream);      
 
             switch(msg.mType)
             {
-                case MessageType.CHAT:
-                    {
-                        ChatMessage chatMsg = (ChatMessage)msg;
-                        Console.WriteLine(String.Format("{0}: {1}", chatMsg.mSender, chatMsg.mMessage));
-                        return;
-                    }
-
-                case MessageType.HEARTBEAT:
-                default:
-                    {
-                        Console.WriteLine("Received Heartbeat from client");
-                        return;
-                    }
+                case MessageType.LOGIN: { EventManager.GetInstance().HandleMessage((LoginMessage)msg); break; }
+                case MessageType.CHAT: { EventManager.GetInstance().HandleMessage((ChatMessage)msg); break; }
+                case MessageType.HEARTBEAT: // Fall-through intentional
+                default: { EventManager.GetInstance().HandleMessage(msg); break; }
             }
         }
     }

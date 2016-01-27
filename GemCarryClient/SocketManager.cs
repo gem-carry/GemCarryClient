@@ -79,7 +79,7 @@ namespace GemCarryClient
         public void EndServerConnection()
         {
             // Release the socket.
-            mServerSocket.Shutdown(SocketShutdown.Both);
+            //mServerSocket.Shutdown(SocketShutdown.Both);
             mServerSocket.Close();
         }
 
@@ -230,6 +230,11 @@ namespace GemCarryClient
             MessageHelper.AppendEOM(compressed, out msg);
 
             mServerSocket.Send(msg, msg.Length, SocketFlags.None);
+        }
+
+        public bool IsConnected()
+        {
+            return (null != mServerSocket) && mServerSocket.Connected;
         }
     }
 }
