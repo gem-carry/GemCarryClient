@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/GemCarryServer/bin/Debug/GemCarryServer.vshost.exe.manifest
+/GemCarryServer/bin/Debug/*.exe
+/GemCarryServer/bin/Debug/*.pdb
+/GemCarryServer/bin/Debug/*.dll
+
+/GemCarryServer/obj/Debug/*.exe
+/GemCarryServer/obj/Debug/*.cache
+/GemCarryServer/obj/Debug/*.pdb
