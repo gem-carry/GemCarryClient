@@ -24,11 +24,19 @@ namespace GemCarryClient
             EventManager.GetInstance().ChatDispatcher += new EventManager.ChatResponse(ReceiveChat);
         }
 
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            mSocketManager.EndServerConnection();
+        }
+
         private void connect_button_Click(object sender, EventArgs e)
         {
             if (false == mSocketManager.IsConnected())
             {
                 mSocketManager.StartServerConnection();
+                connect_button.Text = "Connected";
             }
             else
             {
@@ -44,9 +52,26 @@ namespace GemCarryClient
                 // TODO: Show login details form
 
                 LoginMessage msg = new LoginMessage();
-                //msg.mUsername
-                //msg.mPassword
+                msg.mUsername = username_text.Text;
+                msg.mPassword = password_text.Text;
+
+                mSocketManager.DispatchMessage(msg);
             }
+        }
+
+        private void create_user_button_Click(object sender, EventArgs e)
+        {
+            if (false == mSocketManager.IsConnected())
+            {
+                mSocketManager.StartServerConnection();                
+            }
+            CreateUserMessage msg = new CreateUserMessage();
+            msg.mUsername = username_text.Text;
+            msg.mPassword = password_text.Text;
+            msg.mPasswordValidate = password_text.Text; //TODO: (Validate this on Client side not server side, passing this as same as password for now)
+
+            mSocketManager.DispatchMessage(msg);
+
         }
 
         private void sendChat_button_Click(object sender, EventArgs e)
@@ -106,5 +131,6 @@ namespace GemCarryClient
 
             return delegateParameter;
         }
+
     }
 }

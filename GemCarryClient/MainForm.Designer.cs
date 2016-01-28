@@ -34,6 +34,8 @@
             this.login_button = new System.Windows.Forms.Button();
             this.connect_button = new System.Windows.Forms.Button();
             this.username_text = new System.Windows.Forms.TextBox();
+            this.password_text = new System.Windows.Forms.TextBox();
+            this.create_user_button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // sendChat_button
@@ -63,9 +65,9 @@
             // 
             // login_button
             // 
-            this.login_button.Location = new System.Drawing.Point(443, 86);
+            this.login_button.Location = new System.Drawing.Point(422, 103);
             this.login_button.Name = "login_button";
-            this.login_button.Size = new System.Drawing.Size(97, 23);
+            this.login_button.Size = new System.Drawing.Size(125, 23);
             this.login_button.TabIndex = 3;
             this.login_button.Text = "Log In";
             this.login_button.UseVisualStyleBackColor = true;
@@ -73,11 +75,11 @@
             // 
             // connect_button
             // 
-            this.connect_button.Location = new System.Drawing.Point(443, 57);
+            this.connect_button.Location = new System.Drawing.Point(422, 74);
             this.connect_button.Name = "connect_button";
-            this.connect_button.Size = new System.Drawing.Size(97, 23);
+            this.connect_button.Size = new System.Drawing.Size(125, 23);
             this.connect_button.TabIndex = 4;
-            this.connect_button.Text = "Connect";
+            this.connect_button.Text = "Connect (disconnected)";
             this.connect_button.UseVisualStyleBackColor = true;
             this.connect_button.Click += new System.EventHandler(this.connect_button_Click);
             // 
@@ -90,11 +92,32 @@
             this.username_text.Text = "<Username>";
             this.username_text.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // password_text
+            // 
+            this.password_text.Location = new System.Drawing.Point(408, 48);
+            this.password_text.Name = "password_text";
+            this.password_text.Size = new System.Drawing.Size(161, 20);
+            this.password_text.TabIndex = 6;
+            this.password_text.Text = "<Password>";
+            this.password_text.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // create_user_button
+            // 
+            this.create_user_button.Location = new System.Drawing.Point(422, 132);
+            this.create_user_button.Name = "create_user_button";
+            this.create_user_button.Size = new System.Drawing.Size(125, 23);
+            this.create_user_button.TabIndex = 7;
+            this.create_user_button.Text = "Create User";
+            this.create_user_button.UseVisualStyleBackColor = true;
+            this.create_user_button.Click += new System.EventHandler(this.create_user_button_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(581, 451);
+            this.Controls.Add(this.create_user_button);
+            this.Controls.Add(this.password_text);
             this.Controls.Add(this.username_text);
             this.Controls.Add(this.connect_button);
             this.Controls.Add(this.login_button);
@@ -116,5 +139,7 @@
         private System.Windows.Forms.Button login_button;
         private System.Windows.Forms.Button connect_button;
         private System.Windows.Forms.TextBox username_text;
+        private System.Windows.Forms.TextBox password_text;
+        private System.Windows.Forms.Button create_user_button;
     }
 }
