@@ -30,6 +30,7 @@ namespace GemCarryClient
             {
                 case MessageType.LOGIN: { EventManager.GetInstance().HandleMessage((LoginMessage)msg); break; }
                 case MessageType.CHAT: { EventManager.GetInstance().HandleMessage((ChatMessage)msg); break; }
+                case MessageType.SERVERRESPONSECODE: { EventManager.GetInstance().HandleMessage((ServerResponseCodeMessage)msg); break; }
                 case MessageType.HEARTBEAT: // Fall-through intentional
                 default: { EventManager.GetInstance().HandleMessage(msg); break; }
             }

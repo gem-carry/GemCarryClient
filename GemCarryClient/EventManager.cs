@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GCMessaging;
+﻿using GCMessaging;
 
 namespace GemCarryClient
 {
@@ -28,11 +23,13 @@ namespace GemCarryClient
         public delegate void ConnectResponse(bool isConnected);
         public delegate void LoginResponse(bool success);
         public delegate void ChatResponse(string sender, string message);
+        public delegate void ServerResponseCodeResponse(int response);
 
         // Event Dispatchers
         public event ConnectResponse ConnectedDispatcher;
         public event LoginResponse LoginDispatcher;
         public event ChatResponse ChatDispatcher;
+        public event ServerResponseCodeResponse ServerResponseCodeDispatcher;
 
         // Message Handlers
         public void HandleMessage(MessageBase message)
@@ -50,6 +47,10 @@ namespace GemCarryClient
             ChatDispatcher(message.mSender, message.mMessage);
         }
 
+        public void HandleMessage(ServerResponseCodeMessage message)
+        {
+            ServerResponseCodeDispatcher(message.mResponseCode);
+        }
 
     }
 }

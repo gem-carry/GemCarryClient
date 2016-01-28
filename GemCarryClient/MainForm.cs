@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using GCMessaging;
 
@@ -61,16 +54,8 @@ namespace GemCarryClient
 
         private void create_user_button_Click(object sender, EventArgs e)
         {
-            if (false == mSocketManager.IsConnected())
-            {
-                mSocketManager.StartServerConnection();                
-            }
-            CreateUserMessage msg = new CreateUserMessage();
-            msg.mUsername = username_text.Text;
-            msg.mPassword = password_text.Text;
-            msg.mPasswordValidate = password_text.Text; //TODO: (Validate this on Client side not server side, passing this as same as password for now)
-
-            mSocketManager.DispatchMessage(msg);
+            CreateUserForm createUserForm = new CreateUserForm();
+            createUserForm.Show();
 
         }
 
