@@ -42,8 +42,6 @@ namespace GemCarryClient
         {
             if (true == mSocketManager.IsConnected())
             {
-                // TODO: Show login details form
-
                 LoginMessage msg = new LoginMessage();
                 msg.mUsername = username_text.Text;
                 msg.mPassword = password_text.Text;
@@ -54,9 +52,8 @@ namespace GemCarryClient
 
         private void create_user_button_Click(object sender, EventArgs e)
         {
-            CreateUserForm createUserForm = new CreateUserForm();
+            CreateUserForm createUserForm = new CreateUserForm(mSocketManager);
             createUserForm.Show();
-
         }
 
         private void sendChat_button_Click(object sender, EventArgs e)

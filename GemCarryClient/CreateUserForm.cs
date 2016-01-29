@@ -9,20 +9,21 @@ namespace GemCarryClient
     {
         private SocketManager mSocketManager;
 
-        public CreateUserForm()
+        public CreateUserForm(SocketManager socket)
         {
-            mSocketManager = new SocketManager();
+            mSocketManager = socket;
+
             InitializeComponent();
 
             EventManager.GetInstance().ServerResponseCodeDispatcher += new EventManager.ServerResponseCodeResponse(ServerResponseCode);
-            mSocketManager.IsConnected();
         }
 
         private void submit_user_button_Click(object sender, EventArgs e)
         {
-            if (false == mSocketManager.IsConnected())
+            // Early return if we are not connected
+            if(false == mSocketManager.IsConnected())
             {
-                mSocketManager.StartServerConnection();                
+                return;
             }
 
             if (password_text.Text != repassword_text.Text)

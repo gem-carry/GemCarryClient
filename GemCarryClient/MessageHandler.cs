@@ -12,6 +12,8 @@ namespace GemCarryClient
     {
         public static void HandleMessage(Byte[] msgData)
         {
+            Console.WriteLine("messageData: {0}", msgData);
+
             IFormatter formatter = new BinaryFormatter();
             MemoryStream dataStream = new MemoryStream();
             using (MemoryStream compressedStream = new MemoryStream(msgData))
@@ -24,7 +26,11 @@ namespace GemCarryClient
                 dataStream.Position = 0;
             }
 
-            MessageBase msg = (MessageBase)formatter.Deserialize(dataStream);      
+            Console.WriteLine("Message received {0} bytes compressed into -> {1} bytes serialized ", msgData.Length, dataStream.Length);
+
+            MessageBase msg = (MessageBase)formatter.Deserialize(dataStream);
+
+            Console.WriteLine("Message received :{0}: {1} bytes ", msg.mType, msgData.Length);
 
             switch(msg.mType)
             {
