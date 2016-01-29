@@ -176,7 +176,7 @@ namespace GemCarryClient
                         else
                         {
                             // Not all data received. Get more.
-                            handler.BeginReceive(packet.buffer, 0, SocketPacket.BufferSize, 0,
+                            handler.BeginReceive(packet.buffer, bytesRead, SocketPacket.BufferSize, 0,
                             mReadCallback, packet);
                         }
                     }
