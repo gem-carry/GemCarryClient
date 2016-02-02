@@ -14,8 +14,6 @@ namespace GemCarryClient
             mSocketManager = socket;
 
             InitializeComponent();
-
-            EventManager.GetInstance().ServerResponseCodeDispatcher += new EventManager.ServerResponseCodeResponse(ServerResponseCode);
         }
 
         private void submit_user_button_Click(object sender, EventArgs e)
@@ -36,10 +34,11 @@ namespace GemCarryClient
                 diagnostic_message_label.ForeColor = System.Drawing.Color.Black;
                 //diagnostic_message_label.Text = "Submitting request...";
 
-                CreateUserMessage msg = new CreateUserMessage();
-                msg.mUsername = username_text.Text;
-                msg.mPassword = password_text.Text;
-                msg.mPasswordValidate = password_text.Text;
+                CreateUserRequest msg = new CreateUserRequest()
+                {
+                    username = username_text.Text,
+                    password = password_text.Text,
+                };
 
                 mSocketManager.DispatchMessage(msg);
             }            

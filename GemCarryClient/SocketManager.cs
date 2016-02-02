@@ -7,6 +7,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.IO.Compression;
 using GCMessaging;
+using ProtoBuf;
 
 namespace GemCarryClient
 {
@@ -112,7 +113,7 @@ namespace GemCarryClient
             {
                 try
                 {
-                    MessageBase msg = new MessageBase();
+                    GCMessaging.Heartbeat msg = new GCMessaging.Heartbeat() { ack = true };
                     DispatchMessage(msg);
                 }
                 catch(Exception ex)
@@ -190,6 +191,7 @@ namespace GemCarryClient
             ListenLoop();
         }
 
+        /*
         public void DispatchMessage(MessageBase outMsg)
         {
             IFormatter formatter = new BinaryFormatter();
@@ -213,6 +215,20 @@ namespace GemCarryClient
             MessageHelper.AppendEOM(compressed, out msg);
 
             mServerSocket.Send(msg, msg.Length, SocketFlags.None);
+        }
+         */
+
+        public void DispatchMessage(BaseMessage outMsg)
+        {
+            using (MemoryStream stream = new MemoryStream())
+            {
+                Serializer.Serialize(stream, outMsg);
+
+                byte[] msg;
+                MessageHelper.AppendEOM(stream.ToArray(), out msg);
+
+                mServerSocket.Send(msg, msg.Length, SocketFlags.None);
+            }
         }
 
         public bool IsConnected()

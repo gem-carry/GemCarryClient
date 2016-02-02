@@ -20,36 +20,66 @@ namespace GemCarryClient
         }
 
         // Delegate definitions
-        public delegate void ConnectResponse(bool isConnected);
-        public delegate void LoginResponse(bool success);
-        public delegate void ChatResponse(string sender, string message);
-        public delegate void ServerResponseCodeResponse(int response);
+        public delegate void ConnectEvent(bool isConnected);
+        public delegate void LoginEvent(bool success);
+        public delegate void ChatEvent(string sender, string message);
+        public delegate void CreateUserEvent(bool success);
 
         // Event Dispatchers
-        public event ConnectResponse ConnectedDispatcher;
-        public event LoginResponse LoginDispatcher;
-        public event ChatResponse ChatDispatcher;
-        public event ServerResponseCodeResponse ServerResponseCodeDispatcher;
+        public event ConnectEvent ConnectedDispatcher;
+        public event LoginEvent LoginDispatcher;
+        public event ChatEvent ChatDispatcher;
+        public event CreateUserEvent CreateUserDispatcher;
 
         // Message Handlers
-        public void HandleMessage(MessageBase message)
+        public void HandleMessage(ConnectResponse message)
         {
-            ConnectedDispatcher(true);
+            if (null != ConnectedDispatcher)
+            {
+                ConnectedDispatcher(message.success);
+            }
         }
 
-        public void HandleMessage(LoginMessage message)
+        public void HandleMessage(LoginResponse message)
         {
-            LoginDispatcher(true);
+            if (null != LoginDispatcher)
+            {
+                LoginDispatcher(message.success);
+            }
+
+            if (true == message.success && null != ChatDispatcher)
+            {
+                ChatDispatcher("Server", "Successfully logged in!");
+            }
+            else
+            {
+                ChatDispatcher("Server", "Username or password is invalid.");
+            }
         }
 
         public void HandleMessage(ChatMessage message)
         {
-            ChatDispatcher(message.mSender, message.mMessage);
+            if (null != ChatDispatcher)
+            {
+                ChatDispatcher(message.sender, message.message);
+            }
         }
 
-        public void HandleMessage(ServerResponseCodeMessage message)
+        public void HandleMessage(CreateUserResponse message)
         {
-            ServerResponseCodeDispatcher(message.mResponseCode);
+            if (null != CreateUserDispatcher)
+            {
+                CreateUserDispatcher(message.success);
+            }
+
+            if(true == message.success && null != ChatDispatcher)
+            {
+                ChatDispatcher("Server", "Successfully created user!");
+            }
+            else
+            {
+                ChatDispatcher("Server", "Username already exists.");
+            }
         }
 
     }

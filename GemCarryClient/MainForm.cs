@@ -13,8 +13,8 @@ namespace GemCarryClient
             mSocketManager = new SocketManager();
             InitializeComponent();
 
-            EventManager.GetInstance().ConnectedDispatcher += new EventManager.ConnectResponse(Connected);
-            EventManager.GetInstance().ChatDispatcher += new EventManager.ChatResponse(ReceiveChat);
+            EventManager.GetInstance().ConnectedDispatcher += new EventManager.ConnectEvent(Connected);
+            EventManager.GetInstance().ChatDispatcher += new EventManager.ChatEvent(ReceiveChat);
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -42,9 +42,11 @@ namespace GemCarryClient
         {
             if (true == mSocketManager.IsConnected())
             {
-                LoginMessage msg = new LoginMessage();
-                msg.mUsername = username_text.Text;
-                msg.mPassword = password_text.Text;
+                LoginRequest msg = new LoginRequest()
+                {
+                    username = username_text.Text,
+                    password = password_text.Text,
+                };
 
                 mSocketManager.DispatchMessage(msg);
             }
@@ -60,9 +62,11 @@ namespace GemCarryClient
         {
             if(true == mSocketManager.IsConnected())
             {
-                ChatMessage msg = new ChatMessage();
-                msg.mSender = username_text.Text;
-                msg.mMessage = chatbox_text.Text;
+                ChatMessage msg = new ChatMessage()
+                {
+                    sender = username_text.Text,
+                    message = chatbox_text.Text,
+                };
 
                 mSocketManager.DispatchMessage(msg);
             }

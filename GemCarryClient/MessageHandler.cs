@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Runtime.Serialization.Formatters.Binary;
 using GCMessaging;
+using ProtoBuf;
 
 namespace GemCarryClient
 {
@@ -12,33 +13,20 @@ namespace GemCarryClient
     {
         public static void HandleMessage(Byte[] msgData)
         {
-            Console.WriteLine("messageData: {0}", msgData);
-
-            IFormatter formatter = new BinaryFormatter();
-            MemoryStream dataStream = new MemoryStream();
-            using (MemoryStream compressedStream = new MemoryStream(msgData))
+            using (MemoryStream stream = new MemoryStream(msgData))
             {
-                using (DeflateStream ds = new DeflateStream(compressedStream, CompressionMode.Decompress))
+                BaseMessage msg = Serializer.Deserialize<BaseMessage>(stream);
+
+                Console.WriteLine("Message received :{0}: {1} bytes ", msg.GetType().ToString(), msgData.Length);
+
+                switch ((MessageType)msg.messageType)
                 {
-                    ds.CopyTo(dataStream);
-                    ds.Close();
+                    case MessageType.LoginResponse: { EventManager.GetInstance().HandleMessage((LoginResponse)msg); break; }
+                    case MessageType.ChatMessage: { EventManager.GetInstance().HandleMessage((ChatMessage)msg); break; }
+                    case MessageType.ConnectResponse: { EventManager.GetInstance().HandleMessage((ConnectResponse)msg); break; }
+                    case MessageType.CreateUserResponse: { EventManager.GetInstance().HandleMessage((CreateUserResponse)msg); break; }
+                    default: { Console.WriteLine("Cannot handle message type: {0}!", msg.messageType.ToString()); break; }
                 }
-                dataStream.Position = 0;
-            }
-
-            Console.WriteLine("Message received {0} bytes compressed into -> {1} bytes serialized ", msgData.Length, dataStream.Length);
-
-            MessageBase msg = (MessageBase)formatter.Deserialize(dataStream);
-
-            Console.WriteLine("Message received :{0}: {1} bytes ", msg.mType, msgData.Length);
-
-            switch(msg.mType)
-            {
-                case MessageType.LOGIN: { EventManager.GetInstance().HandleMessage((LoginMessage)msg); break; }
-                case MessageType.CHAT: { EventManager.GetInstance().HandleMessage((ChatMessage)msg); break; }
-                case MessageType.SERVERRESPONSECODE: { EventManager.GetInstance().HandleMessage((ServerResponseCodeMessage)msg); break; }
-                case MessageType.HEARTBEAT: // Fall-through intentional
-                default: { EventManager.GetInstance().HandleMessage(msg); break; }
             }
         }
     }
